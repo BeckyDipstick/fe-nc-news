@@ -1,26 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Homepage from './Components/Homepage';
+import { Router } from '@reach/router';
+import ArticleList from './Components/ArticleList';
+import SingleArticle from './Components/SingleArticle';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import CommentsForArticle from './Components/CommentsForArticle';
+import PostComment from './Components/PostComment';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<div className="App">
+			<Router>
+				<Homepage path="/" />
+				<ArticleList path="/articles" articles />
+				<SingleArticle path="/articles/:article_id" />
+				<ArticleList path="/topics/:topic_slug/articles" />
+				<CommentsForArticle path="/articles/:article_id/comments" />
+				<PostComment path="/articles/:article_id/comments" />
+			</Router>
+		</div>
+	);
 }
 
 export default App;
