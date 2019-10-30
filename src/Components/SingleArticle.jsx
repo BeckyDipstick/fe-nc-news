@@ -42,9 +42,11 @@ class SingleArticle extends React.Component {
 				<Button variant="outline-danger" size={'sm'}>
 					Downvote
 				</Button>
-				<Button variant="outline-primary" size={'sm'}>
-					Post Comment
-				</Button>
+				<Link to={`/articles/${article.article_id}/comments/post_comment`}>
+					<Button variant="outline-primary" size={'sm'}>
+						Post Comment
+					</Button>
+				</Link>
 			</main>
 		);
 	}

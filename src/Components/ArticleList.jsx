@@ -48,10 +48,8 @@ class ArticleList extends React.Component {
 							<Card.Body key={article.article_id} className={'article-cards'}>
 								<Card.Title>{article.title}</Card.Title>
 								<Card.Subtitle>By {article.author}</Card.Subtitle>
-								<Card.Text>
-									Article from {article.topic}
-									This article has {article.votes} votes
-								</Card.Text>
+								<Card.Text>Article from {article.topic}</Card.Text>
+								<Card.Text>This article has {article.votes} votes</Card.Text>
 								<Link to={`/articles/${article.article_id}`}>
 									<Button variant="primary" size={'sm'}>
 										See Full Article
@@ -61,6 +59,13 @@ class ArticleList extends React.Component {
 									<Button variant="primary" size={'sm'}>
 										See Comments For Article
 									</Button>
+									<Link
+										to={`/articles/${article.article_id}/comments/post_comment`}
+									>
+										<Button variant="outline-primary" size={'sm'}>
+											Post Comment
+										</Button>
+									</Link>
 								</Link>
 								<Button variant="outline-info" size={'sm'}>
 									Upvote

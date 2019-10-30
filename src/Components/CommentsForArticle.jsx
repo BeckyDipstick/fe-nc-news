@@ -35,10 +35,8 @@ class CommentsForArticle extends React.Component {
 							<Card.Body key={comment.comment_id} className={'article-cards'}>
 								<Card.Title>{comment.author}</Card.Title>
 								<Card.Subtitle>For article {comment.article_id}</Card.Subtitle>
-								<Card.Text>
-									{comment.body}
-									votes: {comment.votes}
-								</Card.Text>
+								<Card.Text>{comment.body}</Card.Text>
+								<Card.Text>Comment has {comment.votes} votes.</Card.Text>
 								<Button variant="outline-success" size={'sm'}>
 									Upvote
 								</Button>
