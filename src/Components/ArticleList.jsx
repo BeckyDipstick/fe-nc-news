@@ -1,12 +1,14 @@
 import React from 'react';
-import { Card, Button, Dropdown } from 'react-bootstrap';
+import { Card, Button, Dropdown, CardDeck } from 'react-bootstrap';
 import { Link } from '@reach/router';
 import axios from 'axios';
+import Voter from './Voter';
 
 class ArticleList extends React.Component {
 	state = {
 		isLoading: true,
-		articles: []
+		articles: [],
+		user: this.props.user
 	};
 	componentDidMount() {
 		return axios
@@ -16,7 +18,10 @@ class ArticleList extends React.Component {
 				}
 			})
 			.then(({ data }) => {
-				this.setState({ articles: data.articles, isLoading: false });
+				this.setState({
+					articles: data.articles,
+					isLoading: false
+				});
 			});
 	}
 	render() {
@@ -28,55 +33,70 @@ class ArticleList extends React.Component {
 				<nav>
 					<Link to="/">Home</Link>
 				</nav>
-				<Dropdown>
-					<Dropdown.Toggle variant="outline-dark" id="dropdown-basic">
+				<Dropdown className="dropdown">
+					<Dropdown.Toggle variant="outline-dark" id="dropdown-basic" size="sm">
 						Sort By
 					</Dropdown.Toggle>
 
 					<Dropdown.Menu>
-						<Dropdown.Item>Date Asc</Dropdown.Item>
-						<Dropdown.Item>Date Desc</Dropdown.Item>
-						<Dropdown.Item>Comment Count Asc</Dropdown.Item>
-						<Dropdown.Item>Comment Count Desc</Dropdown.Item>
-						<Dropdown.Item>Votes Asc</Dropdown.Item>
-						<Dropdown.Item>Votes Desc</Dropdown.Item>
+						<Dropdown.Item>Date</Dropdown.Item>
+						<Dropdown.Item>Votes</Dropdown.Item>
+						<Dropdown.Item>Comment Count</Dropdown.Item>
 					</Dropdown.Menu>
 				</Dropdown>
-				<Card style={{ width: '20rem' }}>
-					{articles.map(article => {
-						return (
-							<Card.Body key={article.article_id} className={'article-cards'}>
-								<Card.Title>{article.title}</Card.Title>
-								<Card.Subtitle>By {article.author}</Card.Subtitle>
-								<Card.Text>Article from {article.topic}</Card.Text>
-								<Card.Text>This article has {article.votes} votes</Card.Text>
-								<Link to={`/articles/${article.article_id}`}>
-									<Button variant="primary" size={'sm'}>
-										See Full Article
-									</Button>
-								</Link>
-								<Link to={`/articles/${article.article_id}/comments`}>
-									<Button variant="primary" size={'sm'}>
-										See Comments For Article
-									</Button>
+				<Dropdown className="dropdown">
+					<Dropdown.Toggle variant="outline-dark" size="sm" id="dropdown-basic">
+						Sort Order
+					</Dropdown.Toggle>
+
+					<Dropdown.Menu>
+						<Dropdown.Item>Asc</Dropdown.Item>
+						<Dropdown.Item>Desc</Dropdown.Item>
+					</Dropdown.Menu>
+				</Dropdown>
+				<CardDeck style={{ display: 'flex', flexDirection: 'row' }}>
+					<Card style={{ flex: 1 }}>
+						{articles.map(article => {
+							return (
+								<Card.Body key={article.article_id} className={'article-cards'}>
+									<Card.Title>{article.title}</Card.Title>
+									<Card.Subtitle>By {article.author}</Card.Subtitle>
+									<Card.Text>Article from {article.topic}</Card.Text>
+
+									<Link
+										to={`/articles/${article.article_id}`}
+										user={this.state.user}
+									>
+										<Button variant="primary" size={'sm'}>
+											See Full Article
+										</Button>
+									</Link>
+									<Link
+										to={`/articles/${article.article_id}/comments`}
+										user={this.state.user}
+									>
+										<Button variant="primary" size={'sm'}>
+											See Comments For Article
+										</Button>
+									</Link>
 									<Link
 										to={`/articles/${article.article_id}/comments/post_comment`}
+										user={this.state.user}
 									>
 										<Button variant="outline-primary" size={'sm'}>
 											Post Comment
 										</Button>
 									</Link>
-								</Link>
-								<Button variant="outline-info" size={'sm'}>
-									Upvote
-								</Button>
-								<Button variant="outline-info" size={'sm'}>
-									Downvote
-								</Button>
-							</Card.Body>
-						);
-					})}
-				</Card>
+									<Voter
+										id={article.article_id}
+										votes={article.votes}
+										path={`articles/${article.article_id}`}
+									/>
+								</Card.Body>
+							);
+						})}
+					</Card>
+				</CardDeck>
 			</main>
 		);
 	}

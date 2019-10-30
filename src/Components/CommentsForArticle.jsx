@@ -1,12 +1,14 @@
 import React from 'react';
 import axios from 'axios';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, CardDeck } from 'react-bootstrap';
 import { Link } from '@reach/router';
+import Voter from './Voter';
 
 class CommentsForArticle extends React.Component {
 	state = {
 		comments: [],
-		isLoading: true
+		isLoading: true,
+		user: this.props.user
 	};
 	componentDidMount() {
 		return axios
@@ -25,28 +27,39 @@ class CommentsForArticle extends React.Component {
 			<main>
 				<h1>Comments will hopefully live here....</h1>
 				<nav>
-					<Link to="/">Home</Link>
-					<Link to="/articles">Articles</Link>
-					<Link to={`/articles/${id}`}>Back to article</Link>
+					<Link to="/" user={this.state.user}>
+						Home
+					</Link>
+					<Link to="/articles" user={this.state.user}>
+						Articles
+					</Link>
+					<Link to={`/articles/${id}`} user={this.state.user}>
+						Back to article
+					</Link>
 				</nav>
-				<Card style={{ width: '20rem' }}>
-					{comments.map(comment => {
-						return (
-							<Card.Body key={comment.comment_id} className={'article-cards'}>
-								<Card.Title>{comment.author}</Card.Title>
-								<Card.Subtitle>For article {comment.article_id}</Card.Subtitle>
-								<Card.Text>{comment.body}</Card.Text>
-								<Card.Text>Comment has {comment.votes} votes.</Card.Text>
-								<Button variant="outline-success" size={'sm'}>
-									Upvote
-								</Button>
-								<Button variant="outline-danger" size={'sm'}>
-									Downvote
-								</Button>
-							</Card.Body>
-						);
-					})}
-				</Card>
+				<CardDeck style={{ display: 'flex', flexDirection: 'row' }}>
+					<Card style={{ flex: 1 }}>
+						{comments.map(comment => {
+							return (
+								<Card.Body key={comment.comment_id} className={'article-cards'}>
+									<Card.Title>{comment.author}</Card.Title>
+									<Card.Subtitle>
+										For article {comment.article_id}
+									</Card.Subtitle>
+									<Card.Text>{comment.body}</Card.Text>
+									<Voter
+										id={comment.comment_id}
+										votes={comment.votes}
+										path={`comments/${comment.comment_id}`}
+									/>
+									<Button variant="danger" size={'sm'}>
+										Delete
+									</Button>
+								</Card.Body>
+							);
+						})}
+					</Card>
+				</CardDeck>
 			</main>
 		);
 	}

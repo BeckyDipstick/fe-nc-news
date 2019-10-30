@@ -2,11 +2,13 @@ import React from 'react';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
 import { Link } from '@reach/router';
+import Voter from './Voter';
 
 class SingleArticle extends React.Component {
 	state = {
 		article: {},
-		isLoading: true
+		isLoading: true,
+		user: this.props.user
 	};
 	componentDidMount() {
 		return axios
@@ -22,27 +24,27 @@ class SingleArticle extends React.Component {
 		const article = this.state.article;
 		return (
 			<main>
-				<h1>{article.title}</h1>
+				<h2>{article.title}</h2>
 				<nav>
 					<Link to="/">Home</Link>
 					<Link to="/articles">Articles</Link>
 				</nav>
-				<h2>By {article.author}</h2>
-				<h3>From topic {article.topic}</h3>
+				<h3>By {article.author}</h3>
+				<h4>From topic {article.topic}</h4>
 				<p>{article.body}</p>
-				<p>Number of votes: {article.votes}</p>
-				<Link to={`/articles/${article.article_id}/comments`}>
+				<Voter path={`articles/${article.article_id}`} votes={article.votes} />
+				<Link
+					to={`/articles/${article.article_id}/comments`}
+					user={this.state.user}
+				>
 					<Button variant="outline-primary" size={'sm'}>
 						Comments
 					</Button>
 				</Link>
-				<Button variant="outline-success" size={'sm'}>
-					Upvote
-				</Button>
-				<Button variant="outline-danger" size={'sm'}>
-					Downvote
-				</Button>
-				<Link to={`/articles/${article.article_id}/comments/post_comment`}>
+				<Link
+					to={`/articles/${article.article_id}/comments/post_comment`}
+					user={this.state.user}
+				>
 					<Button variant="outline-primary" size={'sm'}>
 						Post Comment
 					</Button>

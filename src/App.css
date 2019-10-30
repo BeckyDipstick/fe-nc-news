@@ -43,6 +43,11 @@ h3 {
 	color: whitesmoke;
 }
 
+h4 {
+	font-family: 'Permanent Marker', cursive;
+	color: whitesmoke;
+}
+
 p {
 	color: whitesmoke;
 	font-family: 'Indie Flower', cursive;
@@ -53,15 +58,38 @@ li {
 	font-family: 'Indie Flower', cursive;
 }
 
+.login {
+	float: left;
+}
+
 .article-cards {
 	background-color: #ff8566;
 	font-family: 'Indie Flower', cursive;
 	color: whitesmoke;
-	border: 1px dashed #ff5c33;
+	border: 2px dashed #ff5c33;
 }
 
 nav {
 	font-family: 'Indie Flower', cursive;
 	margin: 15px;
 	padding-right: 10px;
+}
+
+.dropdown {
+	font-family: 'Indie Flower', cursive;
+	padding: 20px;
+}
+
+.feature {
+	padding: 40px;
+}
+
+#featured-article {
+	background: linear-gradient(-45deg, #e62e00, #ff5c33, #ff8566, #ffc2b3);
+	background-size: 2500% 2500%;
+	animation: gradientBG 15s ease infinite;
+}
+
+#upvoteButton {
+	color: darkgreen;
 }

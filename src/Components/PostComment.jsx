@@ -6,7 +6,8 @@ import axios from 'axios';
 class PostComment extends React.Component {
 	state = {
 		username: '',
-		comment_body: ''
+		comment_body: '',
+		user: this.props.user
 	};
 	handleChange = (key, value) => {
 		this.setState({ [key]: value });
@@ -18,7 +19,7 @@ class PostComment extends React.Component {
 			.post(
 				`https://rebecca-nc-news.herokuapp.com/api/articles/${this.props.article_id}/comments`,
 				{
-					username: this.state.username,
+					username: this.state.user,
 					body: this.state.comment_body
 				}
 			)
@@ -31,26 +32,31 @@ class PostComment extends React.Component {
 	};
 	render() {
 		const id = this.props.article_id;
-		const newComment = this.props.comment;
-		console.log(newComment);
+		const user = this.state.user;
 		return (
 			<main>
 				<h1>We can hopefully post a comment here...</h1>
 				<nav>
-					<Link to="/">Home</Link>
-					<Link to="/articles">Articles</Link>
-					<Link to={`/articles/${id}`}>Back to article</Link>
-					<Link to={`/articles/${id}/comments`}>Article Comments</Link>
+					<Link to="/" user={this.state.user}>
+						Home
+					</Link>
+					<Link to="/articles" user={this.state.user}>
+						Articles
+					</Link>
+					<Link to={`/articles/${id}`} user={this.state.user}>
+						Back to article
+					</Link>
+					<Link to={`/articles/${id}/comments`} user={this.state.user}>
+						Article Comments
+					</Link>
 				</nav>
 				<Form onSubmit={this.handleSubmit}>
 					<Form.Group controlId="formBasicText">
 						<Form.Label>Username</Form.Label>
 						<Form.Control
 							type="text"
-							placeholder="Enter Username"
-							onChange={event =>
-								this.handleChange('username', event.target.value)
-							}
+							placeholder={user}
+							onChange={event => this.handleChange('user', event.target.value)}
 						/>
 					</Form.Group>
 					<Form.Group controlId="exampleForm.ControlTextarea1">
