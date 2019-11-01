@@ -34,7 +34,16 @@ class Homepage extends React.Component {
 		const user = this.props.user;
 		const article_id = Math.floor(Math.random() * 33 + 1);
 		const topics = this.state.topics;
-		if (this.state.isLoading) return <p>Loading....</p>;
+		if (this.state.isLoading)
+			return (
+				<>
+					<p>Loading....</p>
+					<img
+						src="https://ak2.picdn.net/shutterstock/videos/8646382/thumb/1.jpg"
+						alt="loading"
+					></img>
+				</>
+			);
 		return (
 			<>
 				<header>

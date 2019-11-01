@@ -47,7 +47,16 @@ class CommentsForArticle extends React.Component {
 		if (status) return <NotFound />;
 		const user = this.props.user;
 		const id = this.props.article_id;
-		if (this.state.isLoading) return <p>Loading....</p>;
+		if (this.state.isLoading)
+			return (
+				<>
+					<p>Loading....</p>
+					<img
+						src="https://ak2.picdn.net/shutterstock/videos/8646382/thumb/1.jpg"
+						alt="loading"
+					></img>
+				</>
+			);
 		const comments = this.state.comments;
 		return (
 			<>
