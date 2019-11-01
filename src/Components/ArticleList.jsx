@@ -153,7 +153,7 @@ class ArticleList extends React.Component {
 											to={`/articles/${article.article_id}/comments/post_comment`}
 											user={user}
 										>
-											<Button variant="outline-primary" size={'sm'}>
+											<Button variant="primary" size={'sm'}>
 												Post Comment
 											</Button>
 										</Link>

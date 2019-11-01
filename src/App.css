@@ -1,8 +1,34 @@
 @import url('https://fonts.googleapis.com/css?family=Indie+Flower&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap');
 
+body {
+	/* color: #e62e00; */
+	background-color: black;
+	/* background-image: linear-gradient(-45deg, #e62e00, #ff5c33, #ff8566, #ffc2b3); */
+	font-family: 'Indie Flower', cursive;
+	font-weight: 700;
+	/* background-attachment: fixed; */
+	/* width: 100%;
+	height: 100vh; */
+	/* background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); */
+	/* background: linear-gradient(-45deg, #ff5c33, #ff8566, #ffc2b3); */
+	/* background-size: 400% 400%; */
+	/* animation: gradientBG 15s ease infinite; */
+}
+
+html {
+	background-color: black;
+}
+
 .App {
 	text-align: center;
+	font-weight: 700;
+	background-color: black;
+	padding: 20px;
+
+	/* background-image: linear-gradient(-45deg, #e62e00, #ff5c33, #ff8566, #ffc2b3); */
+	font-family: 'Indie Flower', cursive;
+	padding: 20px;
 	font-weight: 700;
 }
 
@@ -23,16 +49,18 @@ ul {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
+	color: #e62e00;
 }
 
 li {
 	float: left;
 	font-family: 'Indie Flower', cursive;
+	color: #e62e00;
 }
 
 li a {
 	display: block;
-	color: black;
+	color: #e62e00;
 	text-align: center;
 	padding: 14px 16px;
 	text-decoration: none;
@@ -44,26 +72,11 @@ li a:hover {
 }
 
 .terms {
-	color: black;
+	color: #e62e00;
 	font-family: 'Indie Flower', cursive;
 	text-align: left;
 	font-weight: 700;
 	font-size: 20px;
-}
-
-body {
-	color: black;
-	background-image: linear-gradient(-45deg, #e62e00, #ff5c33, #ff8566, #ffc2b3);
-	font-family: 'Indie Flower', cursive;
-	padding: 20px;
-	font-weight: 700;
-	background-attachment: fixed;
-	/* width: 100%;
-	height: 100vh; */
-	/* background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); */
-	/* background: linear-gradient(-45deg, #ff5c33, #ff8566, #ffc2b3); */
-	/* background-size: 400% 400%; */
-	/* animation: gradientBG 15s ease infinite; */
 }
 
 header {
@@ -73,30 +86,30 @@ header {
 
 h1 {
 	font-family: 'Permanent Marker', cursive;
-	color: black;
+	color: #e62e00;
 	padding: 30px;
 }
 
 h2 {
 	font-family: 'Permanent Marker', cursive;
-	color: black;
+	color: #e62e00;
 	padding: 20px;
 }
 
 h3 {
 	font-family: 'Permanent Marker', cursive;
-	color: black;
+	color: #e62e00;
 	padding: 20px;
 }
 
 h4 {
 	font-family: 'Permanent Marker', cursive;
-	color: black;
+	color: #e62e00;
 	padding: 20px;
 }
 
 p {
-	color: black;
+	color: #e62e00;
 	font-family: 'Indie Flower', cursive;
 }
 
@@ -108,9 +121,10 @@ p {
 	/* background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); */
 
 	/* background-color: #ff8566; */
-	background: linear-gradient(-45deg, #e62e00, #ff5c33, #ff8566, #ffc2b3);
+	/* background: linear-gradient(-45deg, #e62e00, #ff5c33, #ff8566, #ffc2b3); */
 	font-family: 'Indie Flower', cursive;
-	color: black;
+	color: #e62e00;
+	background-color: black;
 	border: 2px dashed #ff5c33;
 }
 
@@ -125,10 +139,6 @@ p {
 
 .terms {
 	font-size: 20px;
-}
-
-#upvoteButton {
-	color: darkgreen;
 }
 
 #oopsy {
