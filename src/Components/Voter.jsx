@@ -6,19 +6,7 @@ class Voter extends React.Component {
 	state = {
 		changeVote: 0
 	};
-	upvoteComment = () => {
-		const path = this.props.path;
-		if (this.state.changeVote === 0) {
-			return axios
-				.patch(`https://rebecca-nc-news.herokuapp.com/api/${path}`, {
-					inc_votes: 1
-				})
-				.then(() => {
-					this.setState({ changeVote: 1 });
-				});
-		}
-	};
-	downvoteComment = direction => {
+	voteComment = direction => {
 		const path = this.props.path;
 		if (this.state.changeVote === 0) {
 			return axios
@@ -41,14 +29,14 @@ class Voter extends React.Component {
 					size={'sm'}
 					id="upvoteButton"
 					disabled={voteChange === 0 ? false : true}
-					onClick={this.upvoteComment}
+					onClick={() => this.voteComment(1)}
 				>
 					Upvote
 				</Button>
 				<Button
 					variant="outline-danger"
 					size={'sm'}
-					onClick={() => this.downvoteComment(-1)}
+					onClick={() => this.voteComment(-1)}
 					disabled={voteChange === 0 ? false : true}
 				>
 					Downvote

@@ -1,20 +1,28 @@
 import React from 'react';
 import { Link } from '@reach/router';
 import axios from 'axios';
-import { Dropdown, Jumbotron } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import SingleArticle from './SingleArticle';
 
 class Homepage extends React.Component {
 	state = {
 		topics: [],
 		isLoading: true,
-		user: ''
+		user: this.props.user,
+		errMsg: null,
+		errStatus: null
 	};
 	componentDidMount() {
 		return axios
 			.get('https://rebecca-nc-news.herokuapp.com/api/topics')
 			.then(({ data }) => {
 				this.setState({ topics: data.topics, isLoading: false });
+			})
+			.catch(err => {
+				this.setState({
+					errMsg: err.response.data.msg,
+					errStatus: err.response.status
+				});
 			});
 	}
 	handleLogin = event => {
@@ -23,12 +31,27 @@ class Homepage extends React.Component {
 		this.props.getUser(user);
 	};
 	render() {
+		const user = this.props.user;
 		const article_id = Math.floor(Math.random() * 33 + 1);
 		const topics = this.state.topics;
 		if (this.state.isLoading) return <p>Loading....</p>;
 		return (
-			<Jumbotron id="featured-article">
-				<main>
+			<>
+				<header>
+					<img
+						src="https://northcoders.com/images/logos/learn_to_code_manchester_rw_second.png"
+						alt="northcoders-logo"
+						id="logo"
+					></img>
+					{user ? (
+						<p>
+							Logged in as {user}!{' '}
+							<span role="img" aria-label="party-popper">
+								{' '}
+								🎉{' '}
+							</span>{' '}
+						</p>
+					) : null}
 					<Dropdown id="dropdown">
 						<Dropdown.Toggle
 							variant="outline-dark"
@@ -58,27 +81,45 @@ class Homepage extends React.Component {
 							</Dropdown.Item>
 						</Dropdown.Menu>
 					</Dropdown>
-					<h1>I'm a homepage! Woo-hoo!</h1>
-					<nav>
+					{user ? (
+						<h1>Hi {user}! Welcome to NC News!</h1>
+					) : (
+						<h1>Welcome to NC News!</h1>
+					)}
+				</header>
+				<main>
+					<ul>
 						{topics.map(topic => {
 							return (
-								<Link
-									to={`/topics/${topic.slug}/articles`}
-									key={topic.slug}
-									user={this.state.user}
-								>
-									{topic.slug} articles
-								</Link>
+								<li key={topic.slug}>
+									<Link
+										to={`/topics/${topic.slug}/articles`}
+										key={topic.slug}
+										user={this.state.user}
+										topic={topic.slug}
+									>
+										{topic.slug} articles
+									</Link>
+								</li>
 							);
 						})}
-						<Link to="/articles" user={this.state.user}>
-							All articles
-						</Link>
-					</nav>
-					<h2 className="feature">Featured Article</h2>
+						<li key="articles">
+							<Link to="/articles" user={this.state.user}>
+								All articles
+							</Link>
+						</li>
+					</ul>
+					{user ? (
+						<h2 className="feature">
+							{user} here's an article you might like...
+						</h2>
+					) : (
+						<h2>Here's an article you might like</h2>
+					)}
+
 					<SingleArticle article_id={article_id} />
 				</main>
-			</Jumbotron>
+			</>
 		);
 	}
 }

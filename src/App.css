@@ -3,6 +3,7 @@
 
 .App {
 	text-align: center;
+	font-weight: 700;
 }
 
 @keyframes gradientBG {
@@ -17,35 +18,76 @@
 	}
 }
 
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+li {
+	float: left;
+	font-family: 'Indie Flower', cursive;
+}
+
+li a {
+	display: block;
+	color: whitesmoke;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-family: 'Indie Flower', cursive;
+}
+
+li a:hover {
+	background-color: #ffc2b3;
+}
+
+.terms {
+	color: whitesmoke;
+	font-family: 'Indie Flower', cursive;
+	text-align: left;
+	font-weight: 700;
+	font-size: 20px;
+}
+
 body {
 	width: 100%;
 	height: 100vh;
 	color: whitesmoke;
 	background: linear-gradient(-45deg, #e62e00, #ff5c33, #ff8566, #ffc2b3);
-	background-size: 2500% 2500%;
-	animation: gradientBG 15s ease infinite;
+	/* background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); */
+	background-attachment: fixed;
+	/* background: linear-gradient(-45deg, #ff5c33, #ff8566, #ffc2b3); */
+	/* background-size: 400% 400%; */
+	/* animation: gradientBG 15s ease infinite; */
 	font-family: 'Indie Flower', cursive;
 	padding: 20px;
+	font-weight: 700;
 }
 
 h1 {
 	font-family: 'Permanent Marker', cursive;
 	color: whitesmoke;
+	padding: 30px;
 }
 
 h2 {
 	font-family: 'Permanent Marker', cursive;
 	color: whitesmoke;
+	padding: 20px;
 }
 
 h3 {
 	font-family: 'Permanent Marker', cursive;
 	color: whitesmoke;
+	padding: 20px;
 }
 
 h4 {
 	font-family: 'Permanent Marker', cursive;
 	color: whitesmoke;
+	padding: 20px;
 }
 
 p {
@@ -53,26 +95,18 @@ p {
 	font-family: 'Indie Flower', cursive;
 }
 
-li {
-	color: whitesmoke;
-	font-family: 'Indie Flower', cursive;
-}
-
 .login {
-	float: left;
+	float: top;
 }
 
 .article-cards {
-	background-color: #ff8566;
+	/* background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); */
+	background: linear-gradient(-45deg, #e62e00, #ff5c33, #ff8566, #ffc2b3);
+
+	/* background-color: #ff8566; */
 	font-family: 'Indie Flower', cursive;
 	color: whitesmoke;
 	border: 2px dashed #ff5c33;
-}
-
-nav {
-	font-family: 'Indie Flower', cursive;
-	margin: 15px;
-	padding-right: 10px;
 }
 
 .dropdown {
@@ -81,15 +115,35 @@ nav {
 }
 
 .feature {
-	padding: 40px;
+	padding: 20px;
 }
 
-#featured-article {
-	background: linear-gradient(-45deg, #e62e00, #ff5c33, #ff8566, #ffc2b3);
-	background-size: 2500% 2500%;
-	animation: gradientBG 15s ease infinite;
+.terms {
+	font-size: 20px;
 }
 
 #upvoteButton {
 	color: darkgreen;
+}
+
+#oopsy {
+	height: 400px;
+	width: 600px;
+}
+
+#corgi {
+	height: 400px;
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+img {
+	padding: 40px;
+}
+
+#logo {
+	height: 100px;
+	width: 200px;
+	float: right;
 }
