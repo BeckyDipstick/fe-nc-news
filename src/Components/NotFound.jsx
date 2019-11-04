@@ -3,12 +3,7 @@ import { Link } from '@reach/router';
 
 function NotFound() {
 	return (
-		<main>
-			<img
-				src="https://northcoders.com/images/logos/learn_to_code_manchester_rw_second.png"
-				alt="northcoders-logo"
-				id="logo"
-			></img>
+		<main className="errors">
 			<ul>
 				<li>
 					<Link to="/">Back to Safety!</Link>

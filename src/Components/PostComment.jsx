@@ -1,59 +1,45 @@
 import React from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { Link, navigate } from '@reach/router';
-import axios from 'axios';
+import ErrorHandler from './ErrorHandler';
+import * as api from '../api';
 
 class PostComment extends React.Component {
 	state = {
 		username: '',
 		comment_body: '',
 		user: this.props.user,
-		err: null
+		errMsg: null,
+		errStatus: null
 	};
 	handleChange = (key, value) => {
 		this.setState({ [key]: value });
 	};
 	handleSubmit = event => {
+		const article_id = this.props.article_id;
+		const { comment_body } = this.state;
+		const username = this.props.user;
 		event.preventDefault();
-		// const { username, comment_body } = this.state;
-		return axios
-			.post(
-				`https://rebecca-nc-news.herokuapp.com/api/articles/${this.props.article_id}/comments`,
-				{
-					username: this.state.user,
-					body: this.state.comment_body
-				}
-			)
-			.then(({ data }) => {
-				return data.comment;
-			})
+		api
+			.postComment(article_id, username, comment_body)
 			.then(() => {
 				navigate(`/articles/${this.props.article_id}/comments`);
 			})
 			.catch(err => {
-				this.setState({ err });
+				this.setState({
+					errMsg: err.response.data.msg,
+					errStatus: err.response.status
+				});
 			});
 	};
 	render() {
 		const id = this.props.article_id;
-		const user = this.state.user;
+		const { errStatus, errMsg } = this.state;
+		if (errStatus)
+			return <ErrorHandler errMsg={errMsg} errStatus={errStatus} />;
 		return (
 			<>
 				<header>
-					<img
-						src="https://northcoders.com/images/logos/learn_to_code_manchester_rw_second.png"
-						alt="northcoders-logo"
-						id="logo"
-					></img>
-					{user ? (
-						<p>
-							Welcome {user}!{' '}
-							<span role="img" aria-label="party-popper">
-								{' '}
-								🎉{' '}
-							</span>{' '}
-						</p>
-					) : null}
 					<h1>Posting comment on (i need the article title to live here)</h1>
 					<ul>
 						<li>
@@ -79,12 +65,14 @@ class PostComment extends React.Component {
 					</ul>
 				</header>
 				<main>
-					<Form onSubmit={this.handleSubmit}>
+					<Form onSubmit={this.handleSubmit} className={'comment-form'}>
 						<Form.Group controlId="formBasicText">
 							<Form.Label>Username</Form.Label>
 							<Form.Control
+								disabled={true}
+								value={this.props.user}
 								type="text"
-								placeholder={user}
+								placeholder={this.props.user}
 								onChange={event =>
 									this.handleChange('user', event.target.value)
 								}
@@ -93,6 +81,7 @@ class PostComment extends React.Component {
 						<Form.Group controlId="exampleForm.ControlTextarea1">
 							<Form.Label>Comment</Form.Label>
 							<Form.Control
+								required
 								as="textarea"
 								rows="7"
 								onChange={event =>
@@ -102,15 +91,13 @@ class PostComment extends React.Component {
 						</Form.Group>
 						<Form.Group controlId="formBasicCheckbox">
 							<Form.Check
+								required
 								type="checkbox"
 								label="I confirm that my comment meets NC News"
 							/>
-							<Link to={`/articles/${id}/comments/post_comment/t&cs`}>
-								{' '}
-								T&C's
-							</Link>
+							<Link to={'/t&cs'}> T&C's</Link>
 						</Form.Group>
-						<Button variant="outline-dark" type="submit">
+						<Button variant="outline-success" type="submit">
 							Submit
 						</Button>
 					</Form>

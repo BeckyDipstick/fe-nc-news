@@ -1,22 +1,19 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import axios from 'axios';
+// import axios from 'axios';
+import * as api from '../api';
 
 class Voter extends React.Component {
 	state = {
 		changeVote: 0
 	};
-	voteComment = direction => {
+	updateVote = direction => {
 		const path = this.props.path;
-		if (this.state.changeVote === 0) {
-			return axios
-				.patch(`https://rebecca-nc-news.herokuapp.com/api/${path}`, {
-					inc_votes: direction
-				})
-				.then(() => {
-					this.setState({ changeVote: direction });
-				});
-		}
+		api.patchVote(direction, path).then(() => {
+			this.setState(currentState => {
+				return { changeVote: currentState.changeVote + direction };
+			});
+		});
 	};
 	render() {
 		const votes = this.props.votes;
@@ -27,17 +24,18 @@ class Voter extends React.Component {
 				<Button
 					variant="outline-success"
 					size={'sm'}
-					id="upvoteButton"
-					disabled={voteChange === 0 ? false : true}
-					onClick={() => this.voteComment(1)}
+					className="vote-button"
+					disabled={voteChange <= 0 ? false : true}
+					onClick={() => this.updateVote(1)}
 				>
 					Upvote
 				</Button>
 				<Button
 					variant="outline-danger"
 					size={'sm'}
-					onClick={() => this.voteComment(-1)}
-					disabled={voteChange === 0 ? false : true}
+					onClick={() => this.updateVote(-1)}
+					disabled={voteChange >= 0 ? false : true}
+					className="vote-button"
 				>
 					Downvote
 				</Button>

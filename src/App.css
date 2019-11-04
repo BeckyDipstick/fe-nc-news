@@ -7,6 +7,7 @@ body {
 	/* background-image: linear-gradient(-45deg, #e62e00, #ff5c33, #ff8566, #ffc2b3); */
 	font-family: 'Indie Flower', cursive;
 	font-weight: 700;
+
 	/* background-attachment: fixed; */
 	/* width: 100%;
 	height: 100vh; */
@@ -21,15 +22,13 @@ html {
 }
 
 .App {
-	text-align: center;
 	font-weight: 700;
 	background-color: black;
-	padding: 20px;
 
 	/* background-image: linear-gradient(-45deg, #e62e00, #ff5c33, #ff8566, #ffc2b3); */
 	font-family: 'Indie Flower', cursive;
-	padding: 20px;
 	font-weight: 700;
+	padding: 10px;
 }
 
 /* @keyframes gradientBG {
@@ -81,31 +80,36 @@ li a:hover {
 
 header {
 	/* border: 1px dashed #e62e00; */
-	margin: 20px;
+	margin-bottom: 20px;
+	border-bottom: 2px solid white;
 }
 
 h1 {
 	font-family: 'Permanent Marker', cursive;
 	color: #e62e00;
 	padding: 30px;
+	font-size: 30px;
 }
 
 h2 {
 	font-family: 'Permanent Marker', cursive;
 	color: #e62e00;
 	padding: 10px;
+	font-size: 20px;
 }
 
 h3 {
 	font-family: 'Permanent Marker', cursive;
 	color: #e62e00;
-	padding: 20px;
+	padding: 15px;
+	font-size: 20px;
 }
 
 h4 {
 	font-family: 'Permanent Marker', cursive;
 	color: #e62e00;
-	padding: 20px;
+	padding: 10px;
+	font-size: 15px;
 }
 
 p {
@@ -120,17 +124,31 @@ p {
 .article-cards {
 	/* background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); */
 
-	/* background-color: #ff8566; */
+	background-color: #ff8566;
 	/* background: linear-gradient(-45deg, #e62e00, #ff5c33, #ff8566, #ffc2b3); */
 	font-family: 'Indie Flower', cursive;
 	color: #e62e00;
 	background-color: black;
 	border: 2px dashed #ff5c33;
+	display: inline-block;
+	width: 30%;
+	min-width: 300px;
+}
+
+.card-deck .card {
+	margin-bottom: 15px;
+	vertical-align: top;
 }
 
 .dropdown {
 	font-family: 'Indie Flower', cursive;
 	padding: 20px;
+	display: inline-block;
+}
+
+#login {
+	font-family: 'Indie Flower', cursive;
+	float: right;
 }
 
 .feature {
@@ -142,19 +160,52 @@ p {
 }
 
 #oopsy {
-	height: 400px;
-	width: 600px;
+	width: 50%;
+	height: auto;
 }
 
 #corgi {
-	height: 400px;
-	width: 600px;
-	margin-left: auto;
-	margin-right: auto;
+	width: 100%;
+	height: auto;
 }
 
 #logo {
-	height: 50px;
-	width: 100px;
+	max-height: 75px;
+	max-width: 150px;
 	float: right;
+}
+
+img {
+	width: 50%;
+	height: auto;
+}
+
+#jumbo {
+	background-color: black;
+}
+
+.card-buttons {
+	width: 100%;
+}
+
+.vote-button {
+	width: 50%;
+	max-width: 300px;
+}
+
+.comment-form {
+	color: #e62e00;
+}
+
+.comment-buttons {
+	width: 50%;
+	max-width: 300px;
+}
+
+.featured-article {
+	text-align: center;
+}
+
+.errors {
+	text-align: center;
 }
