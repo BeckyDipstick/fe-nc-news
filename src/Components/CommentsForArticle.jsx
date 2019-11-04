@@ -1,9 +1,9 @@
 import React from 'react';
-import axios from 'axios';
-import { Card, Button, CardDeck } from 'react-bootstrap';
 import { Link } from '@reach/router';
-import Voter from './Voter';
-import NotFound from './NotFound';
+import ErrorHandler from './ErrorHandler';
+import Loading from './Loading';
+import * as api from '../api';
+import CommentCards from './CommentCards';
 
 class CommentsForArticle extends React.Component {
 	state = {
@@ -13,12 +13,11 @@ class CommentsForArticle extends React.Component {
 		errStatus: null
 	};
 	componentDidMount() {
-		return axios
-			.get(
-				`https://rebecca-nc-news.herokuapp.com/api/articles/${this.props.article_id}/comments`
-			)
-			.then(({ data }) => {
-				this.setState({ comments: data.comments, isLoading: false });
+		const article_id = this.props.article_id;
+		api
+			.fetchComments(article_id)
+			.then(comments => {
+				this.setState({ comments, isLoading: false });
 			})
 			.catch(err => {
 				this.setState({
@@ -34,48 +33,24 @@ class CommentsForArticle extends React.Component {
 		);
 		const user = this.props.user;
 		if (user === author) {
-			return axios
-				.delete(`https://rebecca-nc-news.herokuapp.com/api/comments/${id}`)
-				.then(() => {
-					this.setState({ comments: filteredComments });
-				});
+			api.deleteComment(id).then(() => {
+				this.setState({ comments: filteredComments });
+			});
 		}
 	};
-
 	render() {
-		const status = this.state.errStatus;
-		if (status) return <NotFound />;
+		const { errStatus, errMsg } = this.state;
+		if (errStatus)
+			return <ErrorHandler errMsg={errMsg} errStatus={errStatus} />;
 		const user = this.props.user;
 		const id = this.props.article_id;
 		if (this.state.isLoading)
-			return (
-				<>
-					<p>Loading....</p>
-					<img
-						src="https://ak2.picdn.net/shutterstock/videos/8646382/thumb/1.jpg"
-						alt="loading"
-					></img>
-				</>
-			);
+			return <Loading isLoading={this.state.isLoading} />;
 		const comments = this.state.comments;
 		return (
 			<>
 				<header>
-					<img
-						src="https://northcoders.com/images/logos/learn_to_code_manchester_rw_second.png"
-						alt="northcoders-logo"
-						id="logo"
-					></img>
-					{user ? (
-						<p>
-							Welcome {user}!{' '}
-							<span role="img" aria-label="party-popper">
-								{' '}
-								🎉{' '}
-							</span>{' '}
-						</p>
-					) : null}
-					<h1>Comments for (need the article title to live here)</h1>
+					<h1>Comments for (article title to live here)</h1>
 					<ul>
 						<li>
 							<Link to="/" user={this.state.user}>
@@ -92,49 +67,25 @@ class CommentsForArticle extends React.Component {
 								Back to article
 							</Link>
 						</li>
-						<li>
-							<Link
-								to={`/articles/${id}/comments/post_comment`}
-								user={this.state.user}
-							>
-								Post a comment
-							</Link>
-						</li>
+						{user ? (
+							<li>
+								<Link
+									to={`/articles/${id}/comments/post_comment`}
+									user={this.state.user}
+								>
+									Post a comment
+								</Link>
+							</li>
+						) : null}
 					</ul>
 				</header>
 				<main>
-					<CardDeck style={{ display: 'flex', flexDirection: 'row' }}>
-						<Card style={{ flex: 1 }}>
-							{comments.map(comment => {
-								return (
-									<Card.Body
-										key={comment.comment_id}
-										className={'article-cards'}
-									>
-										<Card.Title>{comment.author}</Card.Title>
-										<Card.Subtitle>
-											For article {this.props.title}
-										</Card.Subtitle>
-										<Card.Text>{comment.body}</Card.Text>
-										<Voter
-											id={comment.comment_id}
-											votes={comment.votes}
-											path={`comments/${comment.comment_id}`}
-										/>
-										<Button
-											variant="danger"
-											size={'sm'}
-											onClick={() =>
-												this.handleDelete(comment.comment_id, comment.author)
-											}
-										>
-											Delete
-										</Button>
-									</Card.Body>
-								);
-							})}
-						</Card>
-					</CardDeck>
+					<CommentCards
+						comments={comments}
+						user={user}
+						id={id}
+						handleDelete={this.handleDelete}
+					/>
 				</main>
 			</>
 		);

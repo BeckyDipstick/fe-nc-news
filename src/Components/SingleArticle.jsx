@@ -1,8 +1,10 @@
 import React from 'react';
-import axios from 'axios';
 import { Button } from 'react-bootstrap';
 import { Link } from '@reach/router';
 import Voter from './Voter';
+import ErrorHandler from './ErrorHandler';
+import Loading from './Loading';
+import * as api from '../api';
 
 class SingleArticle extends React.Component {
 	state = {
@@ -12,12 +14,11 @@ class SingleArticle extends React.Component {
 		errMsg: null
 	};
 	componentDidMount() {
-		return axios
-			.get(
-				`https://rebecca-nc-news.herokuapp.com/api/articles/${this.props.article_id}`
-			)
-			.then(({ data }) => {
-				this.setState({ article: data.article, isLoading: false });
+		const article_id = this.props.article_id;
+		api
+			.fetchSingleArticle(article_id)
+			.then(article => {
+				this.setState({ article, isLoading: false });
 			})
 			.catch(err => {
 				this.setState({
@@ -28,57 +29,15 @@ class SingleArticle extends React.Component {
 	}
 	render() {
 		const { errMsg, errStatus } = this.state;
-		if (errStatus === 404)
-			return (
-				<>
-					<ul>
-						<li>
-							<Link to="/">Back to Safety</Link>
-						</li>
-					</ul>
-					<h1>Oopsy Daisy you can has a {errStatus}</h1>
-					<h2>{errMsg}</h2>
-					<img src="https://httpstatusdogs.com/img/404.jpg" alt="404 dog"></img>
-				</>
-			);
-		if (errStatus === 400)
-			return (
-				<>
-					<ul>
-						<li>
-							<Link to="/">Back to Safety</Link>
-						</li>
-					</ul>
-					<h1>Oopsy Daisy you can has a {errStatus}</h1>
-					<h2>{errMsg}</h2>
-					<img src="https://httpstatusdogs.com/img/400.jpg" alt="400 dog"></img>
-				</>
-			);
+		if (errStatus)
+			return <ErrorHandler errMsg={errMsg} errStatus={errStatus} />;
 		const user = this.props.user;
 		if (this.state.isLoading)
-			return (
-				<>
-					<p>Loading....</p>
-					<img
-						src="https://ak2.picdn.net/shutterstock/videos/8646382/thumb/1.jpg"
-						alt="loading"
-					></img>
-				</>
-			);
+			return <Loading isLoading={this.state.isLoading} />;
 		const article = this.state.article;
 		return (
 			<>
 				<header>
-					{user ? (
-						<p>
-							Welcome {user}!{' '}
-							<span role="img" aria-label="party-popper">
-								{' '}
-								🎉{' '}
-							</span>{' '}
-						</p>
-					) : null}
-					<h2>{article.title}</h2>
 					<ul>
 						<li>
 							<Link to="/">Home</Link>
@@ -88,7 +47,8 @@ class SingleArticle extends React.Component {
 						</li>
 					</ul>
 				</header>
-				<main>
+				<main className={'featured-article'}>
+					<h2>{article.title}</h2>
 					<h3>By {article.author}</h3>
 					<h4>From topic {article.topic}</h4>
 					<p>{article.body}</p>
@@ -97,7 +57,11 @@ class SingleArticle extends React.Component {
 						votes={article.votes}
 					/>
 					<Link to={`/articles/${article.article_id}/comments`} user={user}>
-						<Button variant="outline-primary" size={'sm'}>
+						<Button
+							variant="outline-primary"
+							size={'sm'}
+							className={'comment-buttons'}
+						>
 							Comments
 						</Button>
 					</Link>
@@ -105,9 +69,15 @@ class SingleArticle extends React.Component {
 						to={`/articles/${article.article_id}/comments/post_comment`}
 						user={user}
 					>
-						<Button variant="outline-primary" size={'sm'}>
-							Post Comment
-						</Button>
+						{user ? (
+							<Button
+								variant="outline-primary"
+								size={'sm'}
+								className={'comment-buttons'}
+							>
+								Post Comment
+							</Button>
+						) : null}
 					</Link>
 				</main>
 			</>

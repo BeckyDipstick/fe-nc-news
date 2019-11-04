@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import Homepage from './Components/Homepage';
 import { Router } from '@reach/router';
 import ArticleList from './Components/ArticleList';
@@ -7,8 +6,11 @@ import SingleArticle from './Components/SingleArticle';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CommentsForArticle from './Components/CommentsForArticle';
 import PostComment from './Components/PostComment';
-import TAndCs from './Components/TAndCs';
+import Terms from './Components/Terms';
 import NotFound from './Components/NotFound';
+import './App.css';
+import Header from './Components/Header';
+import Login from './Components/Login';
 
 class App extends React.Component {
 	state = {
@@ -20,11 +22,13 @@ class App extends React.Component {
 	};
 	componentDidMount() {
 		const user = JSON.parse(localStorage.getItem('user'));
-		if (user) this.setState({ user });
+		if (user) this.setState({ user, isLoading: false });
 	}
 	render() {
 		return (
 			<div className="App">
+				<Header user={this.state.user} />
+				<Login getUser={this.getUser} />
 				<Router>
 					<NotFound default />
 					<Homepage path="/" getUser={this.getUser} user={this.state.user} />
@@ -42,7 +46,7 @@ class App extends React.Component {
 						path="/articles/:article_id/comments/post_comment"
 						user={this.state.user}
 					/>
-					<TAndCs path="articles/:article_id/comments/post_comment/t&cs" />
+					<Terms path="/t&cs" />
 				</Router>
 			</div>
 		);
