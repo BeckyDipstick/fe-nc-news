@@ -5,7 +5,6 @@ import Sorting from './Sorting';
 import ErrorHandler from './ErrorHandler';
 import * as api from '../api';
 import ArticleCards from './ArticleCards';
-
 class ArticleList extends React.Component {
 	state = {
 		isLoading: true,

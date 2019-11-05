@@ -40,7 +40,7 @@ class PostComment extends React.Component {
 		return (
 			<>
 				<header>
-					<h1>Posting comment on (i need the article title to live here)</h1>
+					<h1>Post Comment</h1>
 					<ul>
 						<li>
 							<Link to="/" user={this.state.user}>

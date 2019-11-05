@@ -50,7 +50,7 @@ class CommentsForArticle extends React.Component {
 		return (
 			<>
 				<header>
-					<h1>Comments for (article title to live here)</h1>
+					<h1>Comments</h1>
 					<ul>
 						<li>
 							<Link to="/" user={this.state.user}>

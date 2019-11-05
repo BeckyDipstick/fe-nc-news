@@ -2,13 +2,14 @@ import React from 'react';
 import { Card, Button, CardDeck } from 'react-bootstrap';
 import { Link } from '@reach/router';
 import Voter from './Voter';
+import formatDate from '../utils';
 
 function ArticleCards(props) {
-	const articles = props.articles;
+	const formattedArticles = props.articles;
 	const user = props.user;
 	return (
 		<CardDeck style={{ display: 'inline-block' }}>
-			{articles.map(article => {
+			{formattedArticles.map(article => {
 				return (
 					<Card
 						className={'article-cards'}
@@ -59,7 +60,7 @@ function ArticleCards(props) {
 								votes={article.votes}
 								path={`articles/${article.article_id}`}
 							/>
-							<Card.Text>Written on: {article.created_at}</Card.Text>
+							<Card.Text>Written on {formatDate(article.created_at)}</Card.Text>
 						</Card.Body>
 					</Card>
 				);

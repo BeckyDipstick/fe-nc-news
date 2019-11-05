@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-// import axios from 'axios';
 import * as api from '../api';
 
 class Voter extends React.Component {

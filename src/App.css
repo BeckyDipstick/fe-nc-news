@@ -189,8 +189,9 @@ img {
 }
 
 .vote-button {
-	width: 50%;
+	width: 40%;
 	max-width: 300px;
+	margin: 10px;
 }
 
 .comment-form {
@@ -198,8 +199,9 @@ img {
 }
 
 .comment-buttons {
-	width: 50%;
+	width: 40%;
 	max-width: 300px;
+	margin: 10px;
 }
 
 .featured-article {

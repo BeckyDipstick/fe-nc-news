@@ -10,7 +10,7 @@ function ErrorHandler(props) {
 			<div className="errors">
 				<ul>
 					<li>
-						<Link to="/">Back to Safety</Link>
+						<Link to="/">Back to Safety!</Link>
 					</li>
 				</ul>
 				<h1>Oopsy Daisy you can haz a {errStatus}</h1>
@@ -23,7 +23,7 @@ function ErrorHandler(props) {
 			<div className="errors">
 				<ul>
 					<li>
-						<Link to="/">Back to Safety</Link>
+						<Link to="/">Back to Safety!</Link>
 					</li>
 				</ul>
 				<h1>Oopsy Daisy you can haz a {errStatus}</h1>
@@ -36,7 +36,7 @@ function ErrorHandler(props) {
 			<div className="errors">
 				<ul>
 					<li>
-						<Link to="/">Back to Safety</Link>
+						<Link to="/">Back to Safety!</Link>
 					</li>
 				</ul>
 				<h1>Oopsy Daisy you can haz a {errStatus}</h1>
@@ -54,16 +54,12 @@ function ErrorHandler(props) {
 			<div className="errors">
 				<ul>
 					<li>
-						<Link to="/">Back to Safety</Link>
+						<Link to="/">Back to Safety!</Link>
 					</li>
 				</ul>
 				<h1>Oopsy Daisy you can haz a {errStatus}</h1>
 				<h2>{errMsg}, Invalid Username! Please login to continue</h2>
-				<img
-					src="https://httpstatusdogs.com/img/418.jpg"
-					alt="oopsy"
-					id="oopsy"
-				></img>
+				<img src="https://httpstatusdogs.com/img/418.jpg" alt="418-dog"></img>
 			</div>
 		);
 }

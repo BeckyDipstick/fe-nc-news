@@ -5,6 +5,7 @@ import Voter from './Voter';
 import ErrorHandler from './ErrorHandler';
 import Loading from './Loading';
 import * as api from '../api';
+import formatDate from '../utils';
 
 class SingleArticle extends React.Component {
 	state = {
@@ -79,6 +80,7 @@ class SingleArticle extends React.Component {
 							</Button>
 						) : null}
 					</Link>
+					<p className="date">Written on {formatDate(article.created_at)}</p>
 				</main>
 			</>
 		);
