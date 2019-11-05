@@ -7,11 +7,6 @@ function Terms(props) {
 	return (
 		<Jumbotron id="jumbo">
 			<>
-				<img
-					src="https://northcoders.com/images/logos/learn_to_code_manchester_rw_second.png"
-					alt="northcoders-logo"
-					id="logo"
-				></img>
 				<header>
 					<h1>How to lose friends and alienate people</h1>
 					<ul>
